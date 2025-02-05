@@ -14,12 +14,36 @@ contract StakingTestContract is Test {
     function testStake() public {
         uint value = 10 ether;
         c.stake{value: value}(value);
-        assert(c.totalStakes() == value);  // Corrected the variable name
+        assert(c.totalStakes() == value); 
     }
 
     function testFailStake() public {
         uint value = 10 ether;
         c.stake(value);
-        assert(c.totalStakes() == value);  // Corrected the variable name
+        assert(c.totalStakes() == value);  
+        
     }
+    //     function testUnStake() public {
+    //     uint value = 10 ether;
+    //     c.stake{value: value}(value);
+    //     c.unstake(value);
+    //     assert(c.totalStakes() == 0); 
+
+    // }// failing beacuse of the unstake transfer function beacuse the contract assuming that the msg.sender is stakingTestContract which cannot recieve the ETH.
+    
+
+    function testUnStake() public {
+    uint value = 10 ether;
+    address user = address(0x1234); // Simulating a real user
+
+    vm.startPrank(user);
+    vm.deal(user, 100 ether); // Give user ETH
+
+    c.stake{value: value}(value);
+    c.unstake(value);
+
+    assert(c.totalStakes() == 0);
+    vm.stopPrank();
+}
+
 }

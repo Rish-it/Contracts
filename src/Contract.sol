@@ -9,7 +9,6 @@ contract StakingContract {
     }
 
     function stake(uint   _amount) public payable {
-
         require(_amount>0);
         require(_amount == msg.value);
         stakes[msg.sender] += _amount;
@@ -19,7 +18,7 @@ contract StakingContract {
     }
 
     function unstake(uint  _amount) public {      //sending doesn't need to be payable
-        require(stakes[msg.sender]>= _amount);
+        require(stakes[msg.sender] >= _amount);
         payable(msg.sender).transfer(_amount);
         totalStakes -= _amount;
         stakes[msg.sender] -= _amount;
