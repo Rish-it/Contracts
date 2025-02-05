@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.13;
 
-contract StkaingContract {
+contract StakingContract {
     mapping (address => uint ) stakes;
     uint public totalStakes;
 
@@ -23,8 +23,5 @@ contract StkaingContract {
         payable(msg.sender).transfer(_amount);
         totalStakes -= _amount;
         stakes[msg.sender] -= _amount;
-
-
-
     }
  }
